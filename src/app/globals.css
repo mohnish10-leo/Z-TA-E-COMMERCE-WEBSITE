@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: #121314;
+  --color-surface-dim: #121314;
+  --color-surface-bright: #393939;
+  --color-surface-container-lowest: #0d0e0f;
+  --color-surface-container-low: #1b1c1c;
+  --color-surface-container: #1f2020;
+  --color-surface-container-high: #292a2a;
+  --color-surface-container-highest: #343535;
+  --color-on-surface: #e4e2e2;
+  --color-on-surface-variant: #c4c7c7;
+  --color-outline: #8e9192;
+  --color-outline-variant: #444748;
+  --color-primary: #c8c6c5;
+  --color-on-primary: #313030;
+  --color-background: #121314;
+  --color-on-background: #e4e2e2;
+
+  --font-headline: "Playfair Display", serif;
+  --font-body: "Inter", sans-serif;
+
+  --spacing-section: 128px;
+  --spacing-margin-desktop: 80px;
+  --spacing-margin-mobile: 24px;
+  --spacing-gutter: 32px;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  font-family: var(--font-body);
+}
+
+.font-headline {
+  font-family: var(--font-headline);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Base custom styles */
+.text-label-caps {
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.text-headline-xl {
+  font-family: var(--font-headline);
+  font-size: 80px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+.text-headline-lg {
+  font-family: var(--font-headline);
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+.text-headline-md {
+  font-family: var(--font-headline);
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.text-body-lg {
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  font-weight: 300;
+}
+.text-body-md {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes pan {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-2%, 2%) scale(1.05); }
+}
