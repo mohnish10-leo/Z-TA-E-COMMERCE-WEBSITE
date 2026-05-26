@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 import { Navbar } from '@/components/Navbar'
 import { CartDrawer } from '@/components/CartDrawer'
 import { SearchOverlay } from '@/components/SearchOverlay'
+import AiSommelier from '@/components/AiSommelier'
 
 export default function RootLayout({
   children,
@@ -34,6 +35,7 @@ export default function RootLayout({
         <Navbar />
         <CartDrawer />
         <SearchOverlay />
+        <AiSommelier />
         {children}
       </body>
     </html>
