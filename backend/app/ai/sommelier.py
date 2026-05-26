@@ -1,12 +1,12 @@
 import os
 from crewai import Agent, Task, Crew, Process
-from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# We initialize the Gemini LLM. It expects GOOGLE_API_KEY to be in the environment.
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.7)
+# CrewAI uses LiteLLM under the hood, which looks for GEMINI_API_KEY.
+if "GOOGLE_API_KEY" in os.environ and "GEMINI_API_KEY" not in os.environ:
+    os.environ["GEMINI_API_KEY"] = os.environ["GOOGLE_API_KEY"]
 
 # Define the Sommelier Agent
 sommelier_agent = Agent(
@@ -21,7 +21,7 @@ sommelier_agent = Agent(
     ),
     verbose=True,
     allow_delegation=False,
-    llm=llm
+    llm="gemini/gemini-1.5-flash"
 )
 
 def get_fragrance_recommendation(user_query: str) -> str:
