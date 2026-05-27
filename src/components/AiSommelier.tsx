@@ -22,7 +22,7 @@ export default function AiSommelier() {
     setIsLoading(true)
 
     try {
-      const res = await fetch('https://zeta-e-commerce-website.onrender.com/chat', {
+      const res = await fetch('https://zeta-e-commerce-website.onrender.com/chat/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMsg })

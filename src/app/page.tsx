@@ -4,7 +4,7 @@ import { FadeIn } from '@/components/FadeIn'
 
 async function getProducts() {
   try {
-    const res = await fetch('https://zeta-e-commerce-website.onrender.com/products', { next: { revalidate: 60 } })
+    const res = await fetch('https://zeta-e-commerce-website.onrender.com/products/', { next: { revalidate: 60 } })
     if (!res.ok) return []
     return res.json()
   } catch (e) {
