@@ -1,9 +1,18 @@
-import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { FadeIn } from '@/components/FadeIn'
 
+async function getProducts() {
+  try {
+    const res = await fetch('https://zeta-e-commerce-website.onrender.com/products', { next: { revalidate: 60 } })
+    if (!res.ok) return []
+    return res.json()
+  } catch (e) {
+    return []
+  }
+}
+
 export default async function ShopPage() {
-  const products = await prisma.product.findMany()
+  const products = await getProducts()
 
   return (
     <div className="bg-background min-h-screen pt-32 pb-32">
@@ -15,8 +24,8 @@ export default async function ShopPage() {
       </div>
 
       <div className="px-6 md:px-margin-desktop grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {products.map((product, idx) => (
-          <FadeIn key={product.id} delay={idx * 0.05}>
+        {products.map((product: any, idx: number) => (
+          <FadeIn key={product.slug} delay={idx * 0.05}>
             <Link href={`/product/${product.slug}`} className="group cursor-pointer block">
               <div className="aspect-[3/4] bg-surface-container overflow-hidden relative mb-6">
                 <img 

@@ -1,15 +1,23 @@
-import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { AddToCartBar } from './AddToCartBar'
 
+async function getProduct(slug: string) {
+  try {
+    const res = await fetch(`https://zeta-e-commerce-website.onrender.com/products/${slug}`, { next: { revalidate: 60 } })
+    if (!res.ok) return null
+    const data = await res.json()
+    if (data.error) return null
+    return data
+  } catch (e) {
+    return null
+  }
+}
+
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
-  const product = await prisma.product.findUnique({
-    where: { slug: resolvedParams.slug },
-    include: { variants: true, scentNotes: true }
-  })
+  const product = await getProduct(resolvedParams.slug)
 
   if (!product) {
     notFound()
@@ -43,7 +51,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <h3 className="font-body text-label-caps tracking-widest text-primary mb-8 uppercase">The Scent Pyramid</h3>
             <div className="flex flex-col gap-8">
               {['Top', 'Heart', 'Base'].map(type => {
-                const note = product.scentNotes.find(n => n.type === type)
+                const note = product.notes?.find((n: any) => n.type === type)
                 if (!note) return null
                 return (
                   <div key={type} className="flex justify-between items-center border-b border-outline-variant/10 pb-4">

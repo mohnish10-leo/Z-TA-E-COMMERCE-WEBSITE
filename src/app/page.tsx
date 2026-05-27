@@ -1,10 +1,20 @@
-import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import { Search, User, ShoppingBag, ArrowRight } from 'lucide-react'
 import { FadeIn } from '@/components/FadeIn'
 
+async function getProducts() {
+  try {
+    const res = await fetch('https://zeta-e-commerce-website.onrender.com/products', { next: { revalidate: 60 } })
+    if (!res.ok) return []
+    return res.json()
+  } catch (e) {
+    return []
+  }
+}
+
 export default async function Home() {
-  const products = await prisma.product.findMany({ take: 6 })
+  const allProducts = await getProducts()
+  const products = allProducts.slice(0, 6)
 
   return (
     <div className="bg-background text-on-background selection:bg-primary/30 selection:text-primary overflow-x-hidden min-h-screen">
@@ -78,8 +88,8 @@ export default async function Home() {
         </FadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          {products.map((product, idx) => (
-            <FadeIn key={product.id} delay={idx * 0.1}>
+          {products.map((product: any, idx: number) => (
+            <FadeIn key={product.slug} delay={idx * 0.1}>
               <Link href={`/product/${product.slug}`} className="group cursor-pointer block">
                 <div className="aspect-[3/4] bg-surface-container overflow-hidden relative mb-8">
                   <img 
