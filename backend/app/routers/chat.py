@@ -14,7 +14,7 @@ class ChatResponse(BaseModel):
     reply: str
 
 @router.post("/", response_model=ChatResponse)
-async def chat_with_sommelier(request: ChatRequest):
+def chat_with_sommelier(request: ChatRequest):
     """Interact with the CrewAI Master Perfumer."""
     try:
         reply = get_fragrance_recommendation(request.message)
