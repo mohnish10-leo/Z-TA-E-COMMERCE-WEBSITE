@@ -21,7 +21,7 @@ sommelier_agent = Agent(
     ),
     verbose=True,
     allow_delegation=False,
-    llm="gemini/gemini-1.5-flash-latest"
+    llm="gemini/gemini-pro"
 )
 
 def get_fragrance_recommendation(user_query: str) -> str:
